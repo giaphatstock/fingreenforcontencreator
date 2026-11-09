@@ -1,4 +1,6 @@
-import "dotenv/config";
+import dotenv from "dotenv";
+dotenv.config({ path: ".env.local" });
+dotenv.config();
 
 export type TtsProvider = "edge-tts" | "lucylab" | "elevenlabs" | "vbee";
 export type VideoTheme = "dark-neon" | "light-pro";

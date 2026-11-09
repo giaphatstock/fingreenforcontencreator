@@ -122,6 +122,14 @@ async function main() {
   // Always re-copy in case bundled was updated
   await copyFile(bundledAvatar, ttAvatarOut);
 
+  // Copy brand logo for top-left shell if available
+  const bundledLogo = join(__dirname, "assets", "logo.png");
+  let brandLogoFile: string | null = null;
+  if (existsSync(bundledLogo)) {
+    brandLogoFile = "brand-logo.png";
+    await copyFile(bundledLogo, join(outputDir, brandLogoFile));
+  }
+
   // Compose HTML
   const html = composeHtml({
     script,
@@ -131,6 +139,7 @@ async function main() {
     audioRelPath: "voice.mp3",
     tiktok: cfg.tiktok,
     tiktokAvatarRelPath: ttAvatarFile,
+    brandLogoRelPath: brandLogoFile,
     outroHoldSec: 3,
   });
   await writeFile(join(outputDir, "index.html"), html);

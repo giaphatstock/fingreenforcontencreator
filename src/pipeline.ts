@@ -207,6 +207,14 @@ export async function runPipeline(scriptPath: string): Promise<void> {
     await copyFile(bundledAvatar, ttAvatarOut);
   }
 
+  // Copy brand logo for top-left shell if available
+  const bundledLogo = join(__dirname, "..", "assets", "logo.png");
+  let brandLogoFile: string | null = null;
+  if (existsSync(bundledLogo)) {
+    brandLogoFile = "brand-logo.png";
+    await copyFile(bundledLogo, join(outputDir, brandLogoFile));
+  }
+
   const html = composeHtml({
     script,
     sceneAudio: sceneAudio.map((a) => ({ id: a.id, durationSec: a.durationSec })),
@@ -215,6 +223,7 @@ export async function runPipeline(scriptPath: string): Promise<void> {
     audioRelPath: "voice.mp3",
     tiktok: cfg.tiktok,
     tiktokAvatarRelPath: ttAvatarFile,
+    brandLogoRelPath: brandLogoFile,
     outroHoldSec: OUTRO_HOLD_SEC,
   });
 

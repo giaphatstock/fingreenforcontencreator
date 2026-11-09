@@ -35,6 +35,8 @@ export interface ComposeArgs {
   tiktok?: TiktokConfig;
   /** Relative path to avatar image inside the output dir (e.g. "tiktok-avatar.jpg"). */
   tiktokAvatarRelPath?: string;
+  /** Relative path to brand logo image inside the output dir (e.g. "brand-logo.png"). */
+  brandLogoRelPath?: string | null;
   /** Extra seconds added to outro scene visual duration after voice ends (TikTok card hold). Default 3. */
   outroHoldSec?: number;
 }
@@ -43,6 +45,7 @@ export function composeHtml(args: ComposeArgs): string {
   const { script, sceneAudio, gapSec, bgImageRelPath, audioRelPath } = args;
   const tiktok = args.tiktok ?? DEFAULT_TIKTOK;
   const tiktokAvatar = args.tiktokAvatarRelPath ?? "tiktok-avatar.jpg";
+  const brandLogo = args.brandLogoRelPath ?? null;
   const outroHoldSec = args.outroHoldSec ?? 3;
 
   // Compute timing per scene. Outro scene gets extra HOLD seconds so the
@@ -65,7 +68,7 @@ export function composeHtml(args: ComposeArgs): string {
   }).join("\n");
 
   // Persistent shell — uses tiktok handle in footer
-  const shellHtml = renderShell(script.metadata, tiktok);
+  const shellHtml = renderShell(script.metadata, tiktok, brandLogo);
 
   const animJs = readFileSync(join(TPL_DIR, "animations.js"), "utf8");
 
@@ -80,20 +83,28 @@ export function composeHtml(args: ComposeArgs): string {
 }
 
 // ── PERSISTENT SHELL ───────────────────────────────────────────────────────
-function renderShell(metadata: Script["metadata"], tiktok: TiktokConfig): string {
+function renderShell(
+  metadata: Script["metadata"],
+  tiktok: TiktokConfig,
+  brandLogoRelPath?: string | null
+): string {
   const channel = escapeHtml(metadata.channel);
   const domain = escapeHtml(metadata.source.domain);
   const handle = escapeHtml(tiktok.handle);
+  const headerContent = brandLogoRelPath
+    ? `<img class="brand-logo-img" src="${escapeHtml(brandLogoRelPath)}" alt="${channel}" />`
+    : `<div class="brand-icon">&gt;_</div>
+  <div class="brand-text">
+    <div class="brand-name">${channel}</div>
+    <div class="brand-tag">BLOG IT</div>
+  </div>`;
+
   return `
 <!-- Shell: persistent brand elements (no data-start → always visible) -->
 <div class="shell-bg"></div>
 
 <div class="brand-shell-header">
-  <div class="brand-icon">&gt;_</div>
-  <div class="brand-text">
-    <div class="brand-name">${channel}</div>
-    <div class="brand-tag">BLOG IT</div>
-  </div>
+  ${headerContent}
 </div>
 
 <div class="brand-shell-handle">
@@ -273,13 +284,15 @@ ${ttCard}`.trim();
  * targeting elements with id="tt-card", id="tt-follow-btn", etc.
  */
 function renderTiktokCard(tiktok: TiktokConfig, avatarRelPath: string): string {
+  const followersHtml = tiktok.followers && tiktok.followers.trim()
+    ? `\n    <div class="tt-followers">${escapeHtml(tiktok.followers)}</div>`
+    : "";
   return `
 <div id="tt-card" class="tt-card">
   <img class="tt-avatar" src="${escapeHtml(avatarRelPath)}" alt="${escapeHtml(tiktok.displayName)}" crossorigin="anonymous" />
   <div class="tt-profile-info">
     <div class="tt-display-name">${escapeHtml(tiktok.displayName)}</div>
-    <div class="tt-handle">${escapeHtml(tiktok.handle)}</div>
-    <div class="tt-followers">${escapeHtml(tiktok.followers)}</div>
+    <div class="tt-handle">${escapeHtml(tiktok.handle)}</div>${followersHtml}
   </div>
   <div id="tt-follow-btn" class="tt-follow-btn">
     <span id="tt-btn-follow" class="tt-btn-text">Follow</span>

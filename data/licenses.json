@@ -1,0 +1,14 @@
+[
+  {
+    "id": "key_master_init",
+    "key": "FINGREEN-MASTER-ADMIN-2026",
+    "tier": "lifetime",
+    "createdAt": "2026-11-09T12:34:30.624Z",
+    "expiresAt": "2099-12-31T23:59:59.000Z",
+    "maxVideosPerMonth": 0,
+    "usedVideosCount": 0,
+    "status": "active",
+    "customerName": "Hệ Thống FinGreen Admin",
+    "customerNote": "Khóa quản trị tối cao"
+  }
+]

@@ -74,7 +74,7 @@ The `voiceText` field is read aloud by Edge TTS / LucyLab / ElevenLabs / Vbee. *
 | Percentage with decimal | `30%` | `ba mươi phần trăm` |
 | Time | `60 giây` | `sáu mươi giây` |
 | Frequency | `5G` | `năm gờ` (be careful — TTS often says "năm-gờ") |
-| Channel name | `CườngIT` / `Cường IT` | `Cường ai ti` |
+| Channel name | `FinGreen` | `Phin Rin` |
 
 **Notation choices:**
 - For decimal point use `chấm` (more spoken/natural) or `phẩy` (formal). Both work; pick consistent.
@@ -140,7 +140,7 @@ RIGHT (natural):
 {
   "id": "outro",
   "type": "outro",
-  "voiceText": "Theo dõi CườngIT để xem bản tin mới mỗi ngày.",
+  "voiceText": "Follow Phin Rin để cập nhật thông tin mới nhất.",
   "visual": {
     "background": { "type": "gradient", "preset": "outro-purple" },
     "text": {
@@ -148,7 +148,7 @@ RIGHT (natural):
       "style": "outro-card",
       "lines": [
         { "content": "Xem bản tin mới mỗi ngày", "emphasis": "primary", "animation": "fade-in" },
-        { "content": "CườngIT",            "emphasis": "channel", "animation": "scale-pop" },
+        { "content": "FinGreen",            "emphasis": "channel", "animation": "scale-pop" },
         { "content": "Nguồn: <DOMAIN>",          "emphasis": "muted",   "animation": "fade-in-late" }
       ]
     }
@@ -200,7 +200,7 @@ Write a short Vietnamese caption + exactly 4 hashtags for the video, based on `s
 **Hashtag rules — exactly 4, in this order:**
 1. One broad tech/niche tag in Vietnamese (e.g. `#congnghe`, `#thuthuat`)
 2. One or two tags specific to the video's actual topic/product/company (e.g. `#openai`, `#ai`, `#pdf`, `#codegraph`)
-3. One channel/discovery tag: `#cuongit` (and `#fyp` or `#xuhuong` if there's room — still capped at 4 total)
+3. One channel/discovery tag: `#fingreen` (and `#fyp` or `#xuhuong` if there's room — still capped at 4 total)
 - Lowercase, no spaces, no punctuation inside a tag.
 
 Write the result to `<outputDir>/caption.txt` using `write_to_file`:

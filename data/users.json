@@ -1,0 +1,26 @@
+[
+  {
+    "id": "usr_1794229484749_82b8b2",
+    "username": "BÙI GIA PHÁT",
+    "email": "phatdeeptraisiu@gmail.com",
+    "passwordHash": "8d969eef6ecad3c29a3a629280e686cf0c3f5d5a86aff3ca12020c923adc6c92",
+    "role": "creator",
+    "tier": "lifetime",
+    "activeKey": "FINGREEN-MASTER-ADMIN-2026",
+    "createdAt": "2026-11-09T13:04:44.750Z",
+    "expiresAt": "2099-12-31T23:59:59.000Z",
+    "totalVideosRendered": 0,
+    "status": "active"
+  },
+  {
+    "id": "usr_admin_root",
+    "username": "admin",
+    "email": "admin@fingreen.vn",
+    "role": "admin",
+    "tier": "lifetime",
+    "createdAt": "2026-11-09T12:34:30.623Z",
+    "expiresAt": "2099-12-31T23:59:59.000Z",
+    "totalVideosRendered": 0,
+    "status": "active"
+  }
+]

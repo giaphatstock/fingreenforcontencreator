@@ -55,6 +55,13 @@ html, body {
   z-index: 50;
 }
 
+.brand-logo-img {
+  max-height: 110px;
+  max-width: 420px;
+  object-fit: contain;
+  filter: drop-shadow(0 4px 14px rgba(0, 0, 0, 0.7));
+}
+
 .brand-icon {
   width: 90px; height: 90px;
   background: linear-gradient(135deg, #7c3aed 0%, #2563eb 100%);
